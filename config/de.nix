@@ -4,7 +4,6 @@
   hardware = {
     graphics = {
       enable = true;
-      enable32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver
         vpl-gpu-rt
@@ -39,8 +38,6 @@
       pulse.enable = true;
       jack.enable = true;
       alsa.enable = true;
-      alsa.support32Bit = true;
     };
   };
 }
-

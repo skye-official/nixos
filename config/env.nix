@@ -22,13 +22,15 @@
       fzf
 
       clang
-      cmake
+      clang-tools
       gnumake
-      rustc
+      cmake
       cargo
+      rustc
       clippy
       rustfmt
       rust-analyzer
+      (jdt-language-server.override { jdk = pkgs.jdk21; })
       nil
       nixd
     ];

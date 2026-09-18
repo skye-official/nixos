@@ -47,4 +47,3 @@
     packages = [ pkgs.terminus_font ];
   };
 }
-

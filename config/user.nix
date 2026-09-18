@@ -27,7 +27,6 @@
   programs = {
     thunderbird.enable = true;
     firefox.enable = true;
-    steam.enable = true;
     mtr.enable = true;
     git.enable = true;
     nix-ld.enable = true;
