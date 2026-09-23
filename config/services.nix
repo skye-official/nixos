@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
+  networking = {
+    networkmanager.enable = true;
+    hostName = "myNixOS";
+  };
+
   hardware = {
     graphics = {
       enable = true;
@@ -35,7 +40,10 @@
         layout = "us";
         variant = "";
       };
-      videoDrivers = [ "amdgpu" "nvidia" ];
+      videoDrivers = [
+        "amdgpu"
+        "nvidia"
+      ];
     };
     displayManager.plasma-login-manager.enable = true;
     desktopManager.plasma6.enable = true;

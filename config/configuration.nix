@@ -1,14 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
-    ./boot.nix
-    ./de.nix
-    ./env.nix
     ./hardware-configuration.nix
     ./locale.nix
     ./nix.nix
-    ./user.nix
+    ./services.nix
+    ./systemd-boot.nix
+    ./userenv.nix
   ];
 
   system.stateVersion = "26.11";

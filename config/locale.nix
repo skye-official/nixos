@@ -1,11 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   time.timeZone = "Asia/Shanghai";
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
-
     inputMethod = {
       enable = true;
       type = "fcitx5";
@@ -30,13 +29,13 @@
     ];
     fontconfig = {
       defaultFonts = {
-        sansSerif  = [ "Noto Sans CJK SC" ];
-        serif      = [ "Noto Serif CJK SC" ];
-        monospace  = [
+        sansSerif = [ "Noto Sans CJK SC" ];
+        serif = [ "Noto Serif CJK SC" ];
+        monospace = [
           "Code New Roman"
           "Noto Sans Mono CJK SC"
         ];
-        emoji      = [ "Noto Color Emoji" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };

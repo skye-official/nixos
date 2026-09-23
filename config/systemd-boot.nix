@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
-{  
+{
+  security.rtkit.enable = true;
+
   boot = {
     loader = {
       systemd-boot = {

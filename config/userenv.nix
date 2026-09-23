@@ -1,23 +1,50 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  security.rtkit.enable = true;
-
-  networking = {
-    networkmanager.enable = true;
-    hostName = "myNixOS";
-  };
-
   users.users.skye = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [
+  };
+
+  environment = {
+    variables = {
+      EDITOR = "hx";
+    };
+    systemPackages = with pkgs; [
+      nvtopPackages.full
+      wl-clipboard
+      fastfetch
+      nix-tree
+      pstree
+      yt-dlp
+      darkly
+      helix
+      tree
+      wget
+      bind
+      btop
+      fzf
+
+      clang
+      clang-tools
+      gnumake
+      cmake
+      cargo
+      rustc
+      clippy
+      rustfmt
+      rust-analyzer
+      nil
+      nixd
+      (jdt-language-server.override { jdk = pkgs.jdk21; })
+
       haruna
       inkscape
       obsidian
       zed-editor
       libreoffice-stable
+      kdePackages.kcalc
       kdePackages.kamoso
       kdePackages.kdenlive
       kdePackages.kjournald
