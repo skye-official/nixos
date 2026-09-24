@@ -39,6 +39,8 @@
       nixd
       (jdt-language-server.override { jdk = pkgs.jdk21; })
 
+      gimp
+      krita
       haruna
       inkscape
       obsidian
@@ -55,7 +57,16 @@
   programs = {
     nix-ld.enable = true;
     mtr.enable = true;
-    git.enable = true;
+    git = {
+      enable = true;
+      config = {
+        init.defaultBranch = "main";
+        user = {
+          name = "skye-official";
+          email = "skye_official@163.com";
+        };
+      };
+    };
     yazi = {
       enable = true;
       package = pkgs.yazi.override {
