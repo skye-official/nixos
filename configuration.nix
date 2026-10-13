@@ -196,6 +196,7 @@
         kdePackages.kcalc
         kdePackages.kamoso
         kdePackages.kjournald
+        kdePackages.filelight
         kdePackages.partitionmanager
       ]
       ++ [ inputs.zen-broswer.packages.${pkgs.stdenv.hostPlatform.system}.default ];
