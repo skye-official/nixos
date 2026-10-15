@@ -7,6 +7,10 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deepseek-harness = {
+      url = "github:moraxyc/deepseek-harness.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,7 +20,10 @@
         myNixOS-panasonic = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
-          modules = [ ./configuration.nix ];
+          modules = [
+            inputs.deepseek-harness.nixosModules.default
+            ./configuration.nix
+          ];
         };
       };
     };

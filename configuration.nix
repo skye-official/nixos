@@ -70,7 +70,6 @@
   };
 
   services = {
-    hardware.bolt.enable = true;
     xserver = {
       xkb = {
         layout = "jp";
@@ -138,14 +137,18 @@
       [
         nvtopPackages.full
         wl-clipboard
+        fastfetch
         nix-tree
         yt-dlp
         helix
         wget
         btop
 
-        fastfetch
-        starship
+        zsh-fast-syntax-highlighting
+        zsh-history-substring-search
+        zsh-autosuggestions
+        zsh-completions
+        zsh-fzf-tab
         ripgrep
         eza
         fzf
@@ -181,9 +184,32 @@
   };
 
   programs = {
+    starship = {
+      enable = true;
+      presets = [ "catppuccin-powerline" ];
+    };
     zsh = {
       enable = true;
-      enableCompletion = false;
+      enableCompletion = true;
+      promptInit = ''
+        # Key bindings
+        bindkey "^[[1;5D" backward-word
+        bindkey "^[[1;5C" forward-word
+        bindkey "^[OD" backward-word
+        bindkey "^[OC" forward-word
+        bindkey -M main "^[[A" history-substring-search-up
+        bindkey -M main "^[[B" history-substring-search-down
+        bindkey -M main "^[OA" history-substring-search-up
+        bindkey -M main "^[OB" history-substring-search-down
+
+        # Plugins
+        source ${pkgs.fzf}/share/fzf/completion.zsh
+        source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+        source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+        source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+        source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+      '';
       shellAliases = {
         l = "eza -alh --icons --git";
         ll = "eza -lh --icons --git";
@@ -215,6 +241,7 @@
       enable = true;
       package = pkgs.jdk21;
     };
+    dsh.enable = true;
     nix-ld.enable = true;
     kde-pim.enable = false;
     thunderbird.enable = true;
