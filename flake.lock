@@ -5,16 +5,59 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1791807135,
-        "narHash": "sha256-P8PUhouQTgxzaoBWkSjWz+mOwKUKFnDpkDrIx+Roj1I=",
+        "lastModified": 1791892729,
+        "narHash": "sha256-cNwlSbT6OZwHIooHe67KuAO1fhNH0AtFOa3/TTucfsE=",
         "owner": "ipeglin",
         "repo": "artcraft-nix",
-        "rev": "ae8625eb38e9fdcd9002899d134d4bd2e763e434",
+        "rev": "34ddb0c53cdc76698f32736542c765c85740ce4e",
         "type": "github"
       },
       "original": {
         "owner": "ipeglin",
         "repo": "artcraft-nix",
+        "type": "github"
+      }
+    },
+    "deepseek-harness": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1792003751,
+        "narHash": "sha256-/8tpPSWjkXCDpaSSxOu1WnhnJw0ygBOWSLAHJKyRoMY=",
+        "owner": "moraxyc",
+        "repo": "deepseek-harness.nix",
+        "rev": "773a671a81c2c853eb2855b8ce57b1eb96435cd8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "moraxyc",
+        "repo": "deepseek-harness.nix",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "deepseek-harness",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790898470,
+        "narHash": "sha256-zTwuwezD0w3hpga6a6P8emidzAZFyWqlNeRBlpWOOl8=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "024633cd702b10285db5cb19b40ad48d2399ba60",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
         "type": "github"
       }
     },
@@ -50,8 +93,24 @@
     "root": {
       "inputs": {
         "artcraft": "artcraft",
+        "deepseek-harness": "deepseek-harness",
         "nixpkgs": "nixpkgs_2",
         "zen-broswer": "zen-broswer"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1776166891,
+        "narHash": "sha256-bI8yrEGjrohR5hkQox7UrxDH7XqrYMwI8SL/LrJ1+S8=",
+        "owner": "nix-systems",
+        "repo": "triplet",
+        "rev": "6de7bc09397911ce03636afbcf6118745ab2cda0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "triplet",
+        "type": "github"
       }
     },
     "zen-broswer": {

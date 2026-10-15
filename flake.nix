@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     artcraft.url = "github:ipeglin/artcraft-nix";
+    deepseek-harness = {
+      url = "github:moraxyc/deepseek-harness.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     zen-broswer = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +28,7 @@
           specialArgs = { inherit inputs; };
           modules = [
             artcraft.nixosModules.default
+            inputs.deepseek-harness.nixosModules.default
             ./configuration.nix
           ];
         };
