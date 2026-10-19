@@ -1,37 +1,37 @@
 {
-  description = "My NixOS";
+  description = "Personal NixOS configuration for myNixOS";
 
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
-    artcraft.url = "github:ipeglin/artcraft-nix";
-    deepseek-harness = {
-      url = "github:moraxyc/deepseek-harness.nix";
+
+    artcraft = {
+      url = "github:ipeglin/artcraft-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zen-broswer = {
-      url = "github:youwen5/zen-browser-flake";
+
+    deepseek-harness = {
+      url = "github:Moraxyc/deepseek-harness.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      system = "x86_64-linux";
+    in
     {
-      self,
-      nixpkgs,
-      artcraft,
-      ...
-    }@inputs:
-    {
-      nixosConfigurations = {
-        myNixOS = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            artcraft.nixosModules.default
-            inputs.deepseek-harness.nixosModules.default
-            ./configuration.nix
-          ];
-        };
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
+
+      nixosConfigurations.myNixOS = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          inputs.artcraft.nixosModules.default
+          inputs.deepseek-harness.nixosModules.default
+          ./hosts/myNixOS
+        ];
       };
+
+      checks.${system}.nixosConfiguration = self.nixosConfigurations.myNixOS.config.system.build.toplevel;
     };
 }

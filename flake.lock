@@ -2,14 +2,16 @@
   "nodes": {
     "artcraft": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1791892729,
-        "narHash": "sha256-cNwlSbT6OZwHIooHe67KuAO1fhNH0AtFOa3/TTucfsE=",
+        "lastModified": 1792313941,
+        "narHash": "sha256-sbo7IW6qRvXz6MVgEc9sAMCrrV0B7kyb+hJfkTMrV8I=",
         "owner": "ipeglin",
         "repo": "artcraft-nix",
-        "rev": "34ddb0c53cdc76698f32736542c765c85740ce4e",
+        "rev": "77b6f87fa737d16758b9085066aa9e4304e1594a",
         "type": "github"
       },
       "original": {
@@ -27,15 +29,15 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1792003751,
-        "narHash": "sha256-/8tpPSWjkXCDpaSSxOu1WnhnJw0ygBOWSLAHJKyRoMY=",
-        "owner": "moraxyc",
+        "lastModified": 1792310716,
+        "narHash": "sha256-cK0tGxPxe2FL/2BExVYQhFbSCVH+dFQbFPbuNklCu3Q=",
+        "owner": "Moraxyc",
         "repo": "deepseek-harness.nix",
-        "rev": "773a671a81c2c853eb2855b8ce57b1eb96435cd8",
+        "rev": "bbb7168aff1aeafee162ab5ecde3c9c92afe0240",
         "type": "github"
       },
       "original": {
-        "owner": "moraxyc",
+        "owner": "Moraxyc",
         "repo": "deepseek-harness.nix",
         "type": "github"
       }
@@ -63,27 +65,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1791594108,
-        "narHash": "sha256-XK4KceonkwD8LuMAt/vNrz982mXJM5jeHAxMwsUXXAQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "6510408d147d8c5e6d76043e899e9251756f6a75",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1791734076,
-        "narHash": "sha256-0dNcyVeoD61zhucIpt5BAQ+ytd6JzF641Z+A9bgltLo=",
-        "rev": "7fd4004d0511991fff3a0524856a9be09e28c5f0",
+        "lastModified": 1792094642,
+        "narHash": "sha256-LPFRbrCWWyNsdQLO3SX1B/5UMkFK0hfe7bZR6lENvpc=",
+        "rev": "fe13242281a67641c0102cdb1087f0ebe586c7df",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1090327.7fd4004d0511/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1093333.fe13242281a6/nixexprs.tar.xz"
       },
       "original": {
         "type": "tarball",
@@ -94,8 +80,7 @@
       "inputs": {
         "artcraft": "artcraft",
         "deepseek-harness": "deepseek-harness",
-        "nixpkgs": "nixpkgs_2",
-        "zen-broswer": "zen-broswer"
+        "nixpkgs": "nixpkgs"
       }
     },
     "systems": {
@@ -110,26 +95,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "triplet",
-        "type": "github"
-      }
-    },
-    "zen-broswer": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1791627880,
-        "narHash": "sha256-qpJE5ug1T+7LEdXRLI9/ZIwe/rzqjILR9BpMg/sNVtM=",
-        "owner": "youwen5",
-        "repo": "zen-browser-flake",
-        "rev": "458cd16116c362a5e92d5db6bdc3599e4e8b1f4a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "youwen5",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

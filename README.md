@@ -1,132 +1,211 @@
 # NixOS Configuration
 
-Personal NixOS configuration for **AMD Ryzen 7 8745H + RTX 4060** laptop (dual GPU, hybrid graphics).
+Personal, flake-based NixOS configuration for **AMD Ryzen 7 8745H + RTX 4050**
+laptop with AMD/NVIDIA hybrid graphics.
 
 ## 🖥️ Hardware
 
-| Component | Spec |
-|-----------|------|
+| Component | Specification |
+|-----------|---------------|
 | CPU | AMD Ryzen 7 8745H (8C/16T, Zen 4) |
 | iGPU | AMD Radeon 780M (RDNA 3) |
-| dGPU | NVIDIA RTX 4060 (Ada Lovelace) |
-| RAM | 14 GiB |
-| Disk | 477 GB NVMe |
-| OS | NixOS 26.11 (Zokor), kernel 7.2.9-zen |
+| dGPU | NVIDIA RTX 4050 (Ada Lovelace) |
+| RAM | 14.93 GiB |
+| Disk | 476.69 GiB NVMe |
+| OS | NixOS unstable, `stateVersion = "26.11"` |
+| Kernel | Linux Zen (`linuxPackages_zen`) |
 
-## ⚙️ Key Features
+## ⚙️ Features
 
-### Boot & Kernel
-- **systemd-boot** with 5 generation limit
-- **Zen kernel** (`linuxPackages_zen`) for low latency
-- **Plymouth** splash (`nixos-bgrt` theme)
-- **zram swap** (zstd, 100% memory)
+### Boot and power
 
-### Graphics (Hybrid/Prime Offload)
-- **AMD iGPU** (amdgpu) as primary
-- **NVIDIA dGPU** (open kernel module, nvidia-vaapi-driver)
-- **Prime offload**: `prime-run` / `__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia`
-- Bus IDs explicitly configured (AMD: PCI:5:0:0, NVIDIA: PCI:1:0:0)
+- systemd-boot with the last five generations kept.
+- Plymouth splash screen using the `nixos-bgrt` theme.
+- Quiet boot with reduced kernel and udev logging.
+- zram swap using zstd and 100% of RAM.
+- NVIDIA power management and PRIME render offload.
 
-### Desktop Environment
-- **KDE Plasma 6** (Wayland)
-- **SDDM** display manager
-- **PipeWire** (Pulse, JACK, ALSA)
-- **fcitx5** input method (Chinese)
+### Desktop
 
-### Shell & CLI
-- **zsh** with carefully ordered plugins:
-  1. fzf (completion + key-bindings)
-  2. **fzf-tab** (must load before autosuggestions/syntax-highlighting)
-  3. zsh-autosuggestions (highlight: `fg=#888888`)
+- KDE Plasma 6 on Wayland.
+- Plasma Login Manager.
+- PipeWire with PulseAudio, JACK, and ALSA compatibility.
+- fcitx5 with Chinese and m17n input methods.
+- Noto CJK, Noto Color Emoji, and Nerd Fonts.
+- Bluetooth enabled at boot.
+
+### Graphics
+
+- AMD iGPU is the primary display device.
+- NVIDIA dGPU uses the open kernel module.
+- Offload command: `prime-run <app>`.
+- Manual offload:
+  ```bash
+  __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia <app>
+  ```
+- Bus IDs are defined in [`hosts/myNixOS/default.nix`](hosts/myNixOS/default.nix):
+  - AMD: `PCI:5:0:0`
+  - NVIDIA: `PCI:1:0:0`
+
+### Shell and CLI
+
+- zsh with completion, autosuggestions, history substring search, and
+  `fzf-tab`.
+- Starship prompt using the `tokyo-night` preset.
+- Plugin load order is intentional:
+  1. fzf shell integration
+  2. fzf-tab
+  3. zsh-autosuggestions
   4. zsh-history-substring-search
-  5. **fast-syntax-highlighting** (last)
-- **Starship** prompt (catppuccin-powerline preset)
-- **eza**, **bat**, **fd**, **rg**, **btop**, **helix** (editor)
-- **direnv** via `zsh-autoenv`
+  5. fast-syntax-highlighting (last)
+- CLI tools include `eza`, `bat`, `fd`, `ripgrep`, `fzf`, `btop`, `fastfetch`,
+  `yazi`, and Helix.
 
-### Development Tools
-- **LLVM/Clang** toolchain
-- **Rust** (cargo, rustc, clippy, rustfmt, rust-analyzer, slint-lsp)
-- **Java 21** (JDK, jdt-language-server)
-- **Node.js** via nixpkgs (nil, nixd, bash-language-server)
-- **Helix** editor, **Obsidian**, **LibreOffice**
+### Development and applications
+
+- Clang/LLVM toolchain with CMake and GNU Make.
+- Rust toolchain and language tooling.
+- Java 21 and JDT Language Server.
+- Nix, Bash, Rust, and Slint language servers.
+- Helix as the default `$EDITOR`.
+- Obsidian, LibreOffice, Haruna, Thunderbird, and KDE utilities.
+- Steam, OBS Studio, and Yazi.
+- `nix-ld` enabled for dynamically linked binaries.
 
 ### Virtualization
-- **libvirtd** + **virt-manager**
-- Network bridge `virbr0` trusted in firewall
 
-### Nix Configuration
-- Flakes + `nix-command` enabled
-- Chinese mirrors (SJTU, USTC, TUNA)
-- `auto-optimise-store`, `fallback`, 5s connect timeout
-- `nix-ld` for dynamic linking compatibility
-- `deepseek-harness` module integrated
+- libvirt and virt-manager.
+- `virbr0` trusted by the firewall for local virtual machines.
 
-## 📁 Structure
+### Nix
 
-```
+- Flakes and the unified `nix` CLI enabled.
+- Additional Chinese binary caches configured.
+- Automatic store optimisation, fallback substituters, and a 5-second
+  connection timeout.
+- Unfree packages allowed.
+- DeepSeek Harness (`dsh`) and Artcraft modules integrated through flake inputs.
+
+## 📁 Repository layout
+
+```text
 .
-├── configuration.nix      # Main system configuration
-├── flake.nix              # Flake entry point
-├── flake.lock             # Locked dependencies
-├── hardware-configuration.nix  # Hardware-specific (generated, not tracked)
-└── README.md              # This file
+├── flake.nix
+├── flake.lock
+├── README.md
+├── hosts/
+│   └── myNixOS/
+│       ├── default.nix                 # Host identity, timezone, state version
+│       └── hardware-configuration.nix  # Machine-specific filesystems and modules
+└── modules/
+    ├── default.nix                     # Imports all shared modules
+    ├── boot.nix                        # Bootloader, kernel, Plymouth
+    ├── desktop.nix                     # Plasma, PipeWire, fonts, fcitx5
+    ├── hardware.nix                    # Graphics, PRIME, zram, Bluetooth, console
+    ├── networking.nix                  # NetworkManager and firewall
+    ├── nix.nix                         # Nix daemon and nixpkgs settings
+    ├── packages.nix                    # System packages and environment variables
+    ├── programs.nix                    # zsh, Starship, desktop/dev programs
+    ├── services.nix                    # rtkit, libvirt, Flatpak
+    └── users.nix                       # User account and groups
 ```
+
+The layout separates the machine definition (`hosts/`) from reusable system
+configuration (`modules/`). Adding another machine means creating another
+`hosts/<name>/default.nix` with its own hardware configuration and wiring it
+into `flake.nix`.
+
+`hardware-configuration.nix` is generated by NixOS but tracked here so that the
+flake evaluation can see a complete machine definition. It contains filesystem
+UUIDs and is specific to this laptop; do not copy it to unrelated hardware.
 
 ## 🚀 Usage
 
-### Initial Setup
+### Build and switch
+
+The repository can live anywhere; `/etc/nixos` is not required.
+
 ```bash
-# Clone to /etc/nixos (or symlink)
-git clone <this-repo> /etc/nixos
-cd /etc/nixos
-
-# Generate hardware config (first time only)
-nixos-generate-config --show-hardware-config > hardware-configuration.nix
-
-# Build & switch
+git clone git@github.com:skye-official/nixos.git ~/nixos
+cd ~/nixos
 sudo nixos-rebuild switch --flake .#myNixOS
 ```
 
-### Daily Updates
+Using `.#myNixOS` explicitly is recommended. Running from the flake directory
+with `.#` would otherwise require the default configuration to exist.
+
+### Update dependencies
+
 ```bash
-cd /etc/nixos
-git pull
-sudo nixos-rebuild switch --flake .
+nix flake update
+sudo nixos-rebuild switch --flake .#myNixOS
 ```
 
-### Rollback
+To update only one input:
+
+```bash
+nix flake update nixpkgs
+```
+
+### Update the hardware configuration
+
+Regenerate it after changing disks, filesystems, or hardware:
+
+```bash
+sudo nixos-generate-config --show-hardware-config \
+  > hosts/myNixOS/hardware-configuration.nix
+```
+
+Review the diff before committing; do not include unrelated filesystem changes
+from a different machine.
+
+### Validate and format
+
+```bash
+nix fmt
+nix flake check
+```
+
+`nix flake check` evaluates and builds the full system closure, so it may take
+a while on the first run.
+
+### Roll back
+
 ```bash
 sudo nixos-rebuild switch --rollback
-# Or select previous generation in systemd-boot menu
 ```
 
-### NVIDIA Offload
+At boot, hold **Space** to show the systemd-boot menu. The menu is hidden by
+default because `boot.loader.timeout = 0`.
+
+## 🔧 Customization
+
+- **Hostname, timezone, state version, and GPU bus IDs:**
+  `hosts/myNixOS/default.nix`
+- **User and groups:** `modules/users.nix`
+- **Graphics, PRIME offload, and NVIDIA settings:** `modules/hardware.nix`
+- **Desktop environment and input method:** `modules/desktop.nix`
+- **System packages:** `modules/packages.nix`
+- **Shell configuration and applications:** `modules/programs.nix`
+- **Binary caches and Nix settings:** `modules/nix.nix`
+
+Check PCI IDs before changing PRIME settings:
+
 ```bash
-# Run app on dGPU
-prime-run <app>
-# Or manually
-__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia <app>
+lspci -nnk | grep -EA3 'VGA|3D|Display'
 ```
 
-## 🔧 Customization Notes
-
-- **Hostname**: `myNixOS` (change in `networking.hostName`)
-- **User**: `skye` (wheel + libvirtd groups)
-- **Timezone**: Asia/Shanghai
-- **Editor**: `hx` (Helix) via `EDITOR` env
-- **Fonts**: Noto CJK + Nerd Font (Code New Roman)
-- **GPU**: Adjust `amdgpuBusId` / `nvidiaBusId` if PCI topology differs
-
-## 📦 External Inputs
+## 📦 Flake inputs
 
 | Input | Source | Purpose |
 |-------|--------|---------|
-| nixpkgs | github:NixOS/nixpkgs/nixos-26.11 | Base packages |
-| zen-browser | github:youwen5/zen-browser-flake | Zen Browser |
-| artcraft | github:ipeglin/artcraft-nix | Font rendering |
-| deepseek-harness | github:moraxyc/deepseek-harness.nix | AI harness module |
+| nixpkgs | `channels.nixos.org/nixos-unstable` tarball | Base package set and NixOS modules |
+| artcraft | `github:ipeglin/artcraft-nix` | Font rendering module |
+| deepseek-harness | `github:Moraxyc/deepseek-harness.nix` | `dsh` CLI and profiles |
+
+Both external modules follow this flake's `nixpkgs` input to avoid duplicate
+package sets.
 
 ## 📝 License
 
-Personal configuration — no warranty, use at your own risk.
+Personal configuration. No warranty; use at your own risk.
