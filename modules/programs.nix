@@ -81,6 +81,7 @@
 
     virt-manager.enable = true;
     thunderbird.enable = true;
+    kde-pim.enable = false;
 
     steam.enable = true;
 
