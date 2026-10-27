@@ -94,9 +94,9 @@
       ];
     };
 
-    artcraft = {
-      enable = true;
-      linkFonts = false;
-    };
+    # artcraft = {
+    #   enable = true;
+    #   linkFonts = false;
+    # };
   };
 }

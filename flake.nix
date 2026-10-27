@@ -4,10 +4,10 @@
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
 
-    artcraft = {
-      url = "github:ipeglin/artcraft-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # artcraft = {
+    #   url = "github:ipeglin/artcraft-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     deepseek-harness = {
       url = "github:Moraxyc/deepseek-harness.nix";
@@ -26,7 +26,7 @@
       nixosConfigurations.myNixOS = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          inputs.artcraft.nixosModules.default
+          # inputs.artcraft.nixosModules.default
           inputs.deepseek-harness.nixosModules.default
           ./hosts/myNixOS
         ];

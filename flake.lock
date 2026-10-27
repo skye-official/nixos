@@ -1,25 +1,5 @@
 {
   "nodes": {
-    "artcraft": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792404335,
-        "narHash": "sha256-uAaBftnbC5y4S5ENa7WLG4VW/OFzmCwdlQX2prhTZ48=",
-        "owner": "ipeglin",
-        "repo": "artcraft-nix",
-        "rev": "b63b3d19e1df8075c53d868818124f555bddaed8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipeglin",
-        "repo": "artcraft-nix",
-        "type": "github"
-      }
-    },
     "deepseek-harness": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -29,11 +9,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1792400035,
-        "narHash": "sha256-SZX9Pn1zQ2oIj3SSURdya4PFLupW8zzX52sKjJtRCqs=",
+        "lastModified": 1793004907,
+        "narHash": "sha256-xxtey0azpcyiwm9JYZdECq1yfABLmfw+T9HQsateieQ=",
         "owner": "Moraxyc",
         "repo": "deepseek-harness.nix",
-        "rev": "3ab3c167f3f28de2d0d26aa6966ad4fad7173edc",
+        "rev": "1e2dbc297fea37c0198b702a2e06d686c672574b",
         "type": "github"
       },
       "original": {
@@ -65,11 +45,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1792210252,
-        "narHash": "sha256-EFOYkCb5ZNtbPx1NInawzi4y/6JRdHia0ag0CbJoMNY=",
-        "rev": "09063bd1f2b36fd9fd793c36dfade7bd40a93dfc",
+        "lastModified": 1792773339,
+        "narHash": "sha256-17eNBI5Khe4JZaRkL5hRGPWf8MZ6qv+bWAr4V8YeKBw=",
+        "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1095516.09063bd1f2b3/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1100280.3ec636362e18/nixexprs.tar.xz"
       },
       "original": {
         "type": "tarball",
@@ -78,7 +58,6 @@
     },
     "root": {
       "inputs": {
-        "artcraft": "artcraft",
         "deepseek-harness": "deepseek-harness",
         "nixpkgs": "nixpkgs"
       }

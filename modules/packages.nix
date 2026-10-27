@@ -35,7 +35,7 @@
       rust-analyzer
       slint-lsp
       slint-viewer
-      (jdt-language-server.override { jdk = pkgs.jdk21; })
+      jdt-language-server
       nil
       nixd
       bash-language-server
@@ -44,10 +44,13 @@
       haruna
       obsidian
       libreoffice-qt
+      gimp-with-plugins
+      inkscape-with-extensions
 
       # KDE utilities
       kdePackages.kcalc
       kdePackages.kamoso
+      kdePackages.kdenlive
       kdePackages.kjournald
       kdePackages.filelight
       kdePackages.partitionmanager

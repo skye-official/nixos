@@ -9,7 +9,7 @@
 
   console = {
     useXkbConfig = true;
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u24n.psf.gz";
     packages = [ pkgs.terminus_font ];
   };
 
